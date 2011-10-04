@@ -1,0 +1,12 @@
+<package project="Mer:Trunk:Base" name="elfutils">
+  <title>A collection of utilities and DSOs to handle compiled objects</title>
+  <description>Elfutils is a collection of utilities, including ld (a linker),
+nm (for listing symbols from object files), size (for listing the
+section sizes of an object or archive file), strip (for discarding
+symbols), readelf (to see the raw ELF file structures), and elflint
+(to check for well-formed ELF files).
+
+
+</description>
+  <url>https://fedorahosted.org/elfutils/</url>
+</package>
