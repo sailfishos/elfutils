@@ -1,3 +1,6 @@
+* Tue Sep 17 2013 Davide Bettio <davide.bettio@ispirata.com> - 0.156
+- Update to 0.156 (it will fix a build error with gcc 4.8).
+
 * Tue Aug 23 2011 Carsten Munk <carsten@maemo.org> - 0.152
 - Actually enable stamp patch that existed, worded it better.
   No need to restart entire core build because of a timestamp.
