@@ -6,7 +6,7 @@
 Summary: A collection of utilities and DSOs to handle compiled objects
 Name: elfutils
 Version: 0.156
-Release: 2
+Release: 3
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
 Group: Development/Tools
 URL: https://fedorahosted.org/elfutils/
@@ -14,7 +14,8 @@ Source: http://fedorahosted.org/releases/e/l/elfutils/%{version}/elfutils-0.156.
 Patch1: elfutils-robustify.patch
 Patch2: elfutils-portability.patch
 Patch3: elfutils-stamp.patch
-Patch4: CVE-2014-9447.patch
+Patch4: CVE-2014-0172.patch
+Patch5: CVE-2014-9447.patch
 Requires: elfutils-libelf-%{_arch} = %{version}-%{release}
 Requires: elfutils-libs-%{_arch} = %{version}-%{release}
 
@@ -148,7 +149,8 @@ sed -i.scanf-m -e 's/%m/%a/g' src/addr2line.c tests/line2addr.c
 %endif
 
 %patch3 -p1 -b .stamping
-%patch4 -p1 -b .cve-2014-9447
+%patch4 -p1 -b .cve-2014-0172
+%patch5 -p1 -b .cve-2014-9447
 
 find . -name \*.sh ! -perm -0100 -print | xargs chmod +x
 
