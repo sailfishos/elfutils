@@ -1,3 +1,6 @@
+* Tue Feb 17 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 0.156-5
+- Add elfutils-0.156.tar.bz2.sig to sources
+
 * Mon Feb 16 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 0.156-4
 - Remove unneeded files
 
