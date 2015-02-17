@@ -6,11 +6,12 @@
 Summary: A collection of utilities and DSOs to handle compiled objects
 Name: elfutils
 Version: 0.156
-Release: 4
+Release: 5
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
 Group: Development/Tools
 URL: https://fedorahosted.org/elfutils/
 Source: http://fedorahosted.org/releases/e/l/elfutils/%{version}/elfutils-0.156.tar.bz2
+Source2: http://fedorahosted.org/releases/e/l/elfutils/%{version}/elfutils-0.156.tar.bz2.sig
 Patch1: elfutils-robustify.patch
 Patch2: elfutils-portability.patch
 Patch3: elfutils-stamp.patch
