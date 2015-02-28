@@ -1,3 +1,6 @@
+* Sat Feb 28 2015 Carsten Munk <carsten.munk@jollamobile.com> - 0.161
+- Upgrade to 0.161 and fix -Os build
+
 * Tue Feb 17 2015 Pasi Sjöholm <pasi.sjoholm@jollamobile.com> - 0.156-5
 - Add elfutils-0.156.tar.bz2.sig to sources
 

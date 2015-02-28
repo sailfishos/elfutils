@@ -1,35 +1,31 @@
-%define compat 0
-
-%define scanf_has_m 1
 %define separate_devel_static 1
 
 Summary: A collection of utilities and DSOs to handle compiled objects
 Name: elfutils
-Version: 0.156
+Version: 0.161
 Release: 5
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
 Group: Development/Tools
 URL: https://fedorahosted.org/elfutils/
-Source: http://fedorahosted.org/releases/e/l/elfutils/%{version}/elfutils-0.156.tar.bz2
-Source2: http://fedorahosted.org/releases/e/l/elfutils/%{version}/elfutils-0.156.tar.bz2.sig
-Patch1: elfutils-robustify.patch
-Patch2: elfutils-portability.patch
-Patch3: elfutils-stamp.patch
-Patch4: CVE-2014-0172.patch
-Patch5: CVE-2014-9447.patch
+Source: http://fedorahosted.org/releases/e/l/elfutils/%{version}/elfutils-0.161.tar.bz2
+Source2: http://fedorahosted.org/releases/e/l/elfutils/%{version}/elfutils-0.161.tar.bz2.sig
+Patch1: elfutils-portability-%{version}.patch
+Patch2: elfutils-0.161-ar-long-name.patch
+# libdw: fix offset for sig8 lookup in dwarf_formref_die
+Patch3: elfutils-0.161-formref-type.patch
+# rhbz#1189928 - Consider sh_addralign 0 as 1
+Patch4: elfutils-0.161-addralign.patch  
+Patch5: elfutils-stamp.patch
+Patch6: 0006-really-make-werror-conditional-to-build-werror.patch
 Requires: elfutils-libelf-%{_arch} = %{version}-%{release}
 Requires: elfutils-libs-%{_arch} = %{version}-%{release}
 
 BuildRequires: bison >= 1.875
 BuildRequires: flex >= 2.5.4a
 BuildRequires: bzip2
-%if !%{compat}
 BuildRequires: gcc >= 3.4
 # Need <byteswap.h> that gives unsigned bswap_16 etc.
 BuildRequires: glibc-headers >= 2.3.4-11
-%else
-BuildRequires: gcc >= 3.2
-%endif
 
 %define use_zlib        1
 %define use_xz          1
@@ -135,24 +131,12 @@ for libelf.
 %prep
 %setup -q
 
-%patch1 -p1 -b .robustify
-
-%if %{compat}
-%patch2 -p1 -b .portability
-sleep 1
-find . \( -name Makefile.in -o -name aclocal.m4 \) -print | xargs touch
-sleep 1
-find . \( -name configure -o -name config.h.in \) -print | xargs touch
-%else
-%if !0%{?scanf_has_m}
-sed -i.scanf-m -e 's/%m/%a/g' src/addr2line.c tests/line2addr.c
-%endif
-%endif
-
-%patch3 -p1 -b .stamping
-%patch4 -p1 -b .cve-2014-0172
-%patch5 -p1 -b .cve-2014-9447
-
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1 
+%patch6 -p1
 find . -name \*.sh ! -perm -0100 -print | xargs chmod +x
 
 %build
@@ -162,13 +146,7 @@ find . -name \*.sh ! -perm -0100 -print | xargs chmod +x
 RPM_OPT_FLAGS=${RPM_OPT_FLAGS/-Wall/}
 RPM_OPT_FLAGS=${RPM_OPT_FLAGS/-Wunused/}
 
-%if %{compat}
-# Some older glibc headers can run afoul of -Werror all by themselves.
-# Disabling the fancy inlines avoids those problems.
-RPM_OPT_FLAGS="$RPM_OPT_FLAGS -D__NO_INLINE__"
-%endif
-
-%reconfigure CFLAGS="$RPM_OPT_FLAGS -fexceptions"
+%reconfigure CFLAGS="$RPM_OPT_FLAGS -fexceptions" --disable-werror
 make 
 
 %install
@@ -213,6 +191,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/eu-size
 %{_bindir}/eu-strings
 %{_bindir}/eu-strip
+%{_bindir}/eu-stack
 #%{_bindir}/eu-ld
 %{_bindir}/eu-unstrip
 %{_bindir}/eu-make-debug-archive
@@ -234,6 +213,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/elfutils/libasm.h
 %{_includedir}/elfutils/libebl.h
 %{_includedir}/elfutils/libdw.h
+%{_includedir}/elfutils/libdwelf.h
 %{_includedir}/elfutils/libdwfl.h
 %{_includedir}/elfutils/version.h
 %{_libdir}/libebl.a
