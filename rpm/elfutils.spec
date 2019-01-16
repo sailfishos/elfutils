@@ -140,6 +140,7 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 # XXX Nuke unpackaged files
 (cd ${RPM_BUILD_ROOT}
  rm -f .%{_bindir}/eu-ld
+ rm -rf .%{_datadir}/locale
 )
 
 %check
@@ -155,7 +156,7 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 
 %files
 %defattr(-,root,root)
-%doc COPYING COPYING-GPLV2 COPYING-LGPLV3
+%license COPYING COPYING-GPLV2 COPYING-LGPLV3
 %{_bindir}/eu-addr2line
 %{_bindir}/eu-ar
 %{_bindir}/eu-elfcmp
@@ -175,7 +176,7 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 
 %files libs
 %defattr(-,root,root)
-%doc COPYING-GPLV2 COPYING-LGPLV3
+%license COPYING-GPLV2 COPYING-LGPLV3
 %{_libdir}/libasm-*.so
 %{_libdir}/libasm.so.*
 %{_libdir}/libdw-*.so
@@ -221,4 +222,3 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 %files libelf-devel-static
 %defattr(-,root,root)
 %{_libdir}/libelf.a
-
