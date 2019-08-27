@@ -2,7 +2,7 @@
 
 Summary: A collection of utilities and DSOs to handle compiled objects
 Name: elfutils
-Version: 0.170
+Version: 0.177
 Release: 1
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
 Group: Development/Tools
@@ -173,6 +173,7 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 %{_bindir}/eu-unstrip
 %{_bindir}/eu-make-debug-archive
 %{_bindir}/eu-elfcompress
+%{_bindir}/eu-elfclassify
 
 %files libs
 %defattr(-,root,root)
