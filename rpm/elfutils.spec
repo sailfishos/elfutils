@@ -5,7 +5,6 @@ Name: elfutils
 Version: 0.177
 Release: 1
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
-Group: Development/Tools
 URL: https://github.com/sailfishos/elfutils
 Source: %{name}-%{version}.tar.bz2
 Requires: elfutils-libelf-%{_arch} = %{version}-%{release}
@@ -33,7 +32,6 @@ symbols), readelf (to see the raw ELF file structures), and elflint
 
 %package libs
 Summary: Libraries to handle compiled objects
-Group:  System/Libraries
 License: GPLv2+ or LGPLv3+
 Provides: elfutils-libs-%{_arch} = %{version}-%{release}
 Requires: elfutils-libelf-%{_arch} = %{version}-%{release}
@@ -46,7 +44,6 @@ other programs using these libraries.
 
 %package devel
 Summary: Development libraries to handle compiled objects
-Group: Development/Libraries
 License: GPLv2+ or LGPLv3+
 Provides: elfutils-devel-%{_arch} = %{version}-%{release}
 Requires: elfutils-libs-%{_arch} = %{version}-%{release}
@@ -64,7 +61,6 @@ assembler interface.
 
 %package devel-static
 Summary: Static archives to handle compiled objects
-Group: Development/Libraries
 License: GPLv2+ or LGPLv3+
 Provides: elfutils-devel-static-%{_arch} = %{version}-%{release}
 Requires: elfutils-devel-%{_arch} = %{version}-%{release}
@@ -76,7 +72,6 @@ with the code to handle compiled objects.
 
 %package libelf
 Summary: Library to read and write ELF files
-Group: System/Libraries
 License: GPLv2+ or LGPLv3+
 Provides: elfutils-libelf-%{_arch} = %{version}-%{release}
 Obsoletes: libelf <= 0.8.2-2
@@ -89,7 +84,6 @@ elfutils package use it also to generate new ELF files.
 
 %package libelf-devel
 Summary: Development support for libelf
-Group: Development/Libraries
 License: GPLv2+ or LGPLv3+
 Provides: elfutils-libelf-devel-%{_arch} = %{version}-%{release}
 Requires: elfutils-libelf-%{_arch} = %{version}-%{release}
@@ -106,7 +100,6 @@ different sections of an ELF file.
 
 %package libelf-devel-static
 Summary: Static archive of libelf
-Group: Development/Libraries
 License: GPLv2+ or LGPLv3+
 Provides: elfutils-libelf-devel-static-%{_arch} = %{version}-%{release}
 Requires: elfutils-libelf-devel-%{_arch} = %{version}-%{release}
