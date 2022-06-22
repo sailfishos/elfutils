@@ -6,7 +6,7 @@ Version: 0.177
 Release: 1
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
 Group: Development/Tools
-URL: https://sourceware.org/elfutils/
+URL: https://github.com/sailfishos/elfutils
 Source: %{name}-%{version}.tar.bz2
 Requires: elfutils-libelf-%{_arch} = %{version}-%{release}
 Requires: elfutils-libs-%{_arch} = %{version}-%{release}
