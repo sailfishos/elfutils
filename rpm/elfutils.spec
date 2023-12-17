@@ -2,7 +2,7 @@
 
 Summary: A collection of utilities and DSOs to handle compiled objects
 Name: elfutils
-Version: 0.177
+Version: 0.190
 Release: 1
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
 URL: https://github.com/sailfishos/elfutils
@@ -14,6 +14,8 @@ BuildRequires: bison >= 1.875
 BuildRequires: flex >= 2.5.4a
 BuildRequires: bzip2
 BuildRequires: gcc >= 3.4
+# autopoint required during build.
+BuildRequires: gettext-devel
 
 BuildRequires: zlib-devel >= 1.2.2.3
 BuildRequires: bzip2-devel
@@ -120,7 +122,7 @@ find . -name \*.sh ! -perm -0100 -print | xargs chmod +x
 RPM_OPT_FLAGS=${RPM_OPT_FLAGS/-Wall/}
 RPM_OPT_FLAGS=${RPM_OPT_FLAGS/-Wunused/}
 
-%reconfigure CFLAGS="$RPM_OPT_FLAGS -fexceptions" --disable-werror --enable-maintainer-mode
+%reconfigure CFLAGS="$RPM_OPT_FLAGS -fexceptions" --disable-libdebuginfod --disable-debuginfod --disable-werror --enable-maintainer-mode
 make %{?_smp_mflags} 
 
 %install
@@ -128,12 +130,12 @@ rm -rf ${RPM_BUILD_ROOT}
 make -s install DESTDIR=${RPM_BUILD_ROOT}
 
 chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib*.so*
-chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 
 # XXX Nuke unpackaged files
 (cd ${RPM_BUILD_ROOT}
  rm -f .%{_bindir}/eu-ld
  rm -rf .%{_datadir}/locale
+ rm -rf .%{_mandir}
 )
 
 %check
@@ -160,6 +162,7 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 %{_bindir}/eu-ranlib
 %{_bindir}/eu-readelf
 %{_bindir}/eu-size
+%{_bindir}/eu-srcfiles
 %{_bindir}/eu-stack
 %{_bindir}/eu-strings
 %{_bindir}/eu-strip
@@ -175,8 +178,6 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 %{_libdir}/libasm.so.*
 %{_libdir}/libdw-*.so
 %{_libdir}/libdw.so.*
-%dir %{_libdir}/elfutils
-%{_libdir}/elfutils/lib*.so
 
 %files devel
 %defattr(-,root,root)
@@ -185,12 +186,10 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/elfutils/lib*.so*
 %{_includedir}/elfutils/elf-knowledge.h
 %{_includedir}/elfutils/known-dwarf.h
 %{_includedir}/elfutils/libasm.h
-%{_includedir}/elfutils/libebl.h
 %{_includedir}/elfutils/libdw.h
 %{_includedir}/elfutils/libdwelf.h
 %{_includedir}/elfutils/libdwfl.h
 %{_includedir}/elfutils/version.h
-%{_libdir}/libebl.a
 %{_libdir}/libasm.so
 %{_libdir}/libdw.so
 %{_libdir}/pkgconfig/libdw.pc
