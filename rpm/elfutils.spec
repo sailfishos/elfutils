@@ -2,7 +2,7 @@
 
 Summary: A collection of utilities and DSOs to handle compiled objects
 Name: elfutils
-Version: 0.190
+Version: 0.193
 Release: 1
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
 URL: https://github.com/sailfishos/elfutils
@@ -76,7 +76,6 @@ with the code to handle compiled objects.
 Summary: Library to read and write ELF files
 License: GPLv2+ or LGPLv3+
 Provides: elfutils-libelf-%{_arch} = %{version}-%{release}
-Obsoletes: libelf <= 0.8.2-2
 
 %description libelf
 The elfutils-libelf package provides a DSO which allows reading and
@@ -92,7 +91,6 @@ Requires: elfutils-libelf-%{_arch} = %{version}-%{release}
 %if !0%{?separate_devel_static}
 Requires: elfutils-libelf-devel-static-%{_arch} = %{version}-%{release}
 %endif
-Obsoletes: libelf-devel <= 0.8.2-2
 
 %description libelf-devel
 The elfutils-libelf-devel package contains the libraries to create
@@ -123,11 +121,10 @@ RPM_OPT_FLAGS=${RPM_OPT_FLAGS/-Wall/}
 RPM_OPT_FLAGS=${RPM_OPT_FLAGS/-Wunused/}
 
 %reconfigure CFLAGS="$RPM_OPT_FLAGS -fexceptions" --disable-libdebuginfod --disable-debuginfod --disable-werror --enable-maintainer-mode
-make %{?_smp_mflags} 
+%make_build
 
 %install
-rm -rf ${RPM_BUILD_ROOT}
-make -s install DESTDIR=${RPM_BUILD_ROOT}
+%make_install
 
 chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib*.so*
 
@@ -150,7 +147,6 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib*.so*
 %postun libelf -p /sbin/ldconfig
 
 %files
-%defattr(-,root,root)
 %license COPYING COPYING-GPLV2 COPYING-LGPLV3
 %{_bindir}/eu-addr2line
 %{_bindir}/eu-ar
@@ -172,7 +168,6 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib*.so*
 %{_bindir}/eu-elfclassify
 
 %files libs
-%defattr(-,root,root)
 %license COPYING-GPLV2 COPYING-LGPLV3
 %{_libdir}/libasm-*.so
 %{_libdir}/libasm.so.*
@@ -180,7 +175,6 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib*.so*
 %{_libdir}/libdw.so.*
 
 %files devel
-%defattr(-,root,root)
 %{_includedir}/dwarf.h
 %dir %{_includedir}/elfutils
 %{_includedir}/elfutils/elf-knowledge.h
@@ -189,23 +183,21 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib*.so*
 %{_includedir}/elfutils/libdw.h
 %{_includedir}/elfutils/libdwelf.h
 %{_includedir}/elfutils/libdwfl.h
+%{_includedir}/elfutils/libdwfl_stacktrace.h
 %{_includedir}/elfutils/version.h
 %{_libdir}/libasm.so
 %{_libdir}/libdw.so
 %{_libdir}/pkgconfig/libdw.pc
 
 %files devel-static
-%defattr(-,root,root)
 %{_libdir}/libasm.a
 %{_libdir}/libdw.a
 
 %files libelf
-%defattr(-,root,root)
 %{_libdir}/libelf-*.so
 %{_libdir}/libelf.so.*
 
 %files libelf-devel
-%defattr(-,root,root)
 %{_includedir}/libelf.h
 %{_includedir}/gelf.h
 %{_includedir}/nlist.h
@@ -213,5 +205,4 @@ chmod +x ${RPM_BUILD_ROOT}%{_prefix}/%{_lib}/lib*.so*
 %{_libdir}/pkgconfig/libelf.pc
 
 %files libelf-devel-static
-%defattr(-,root,root)
 %{_libdir}/libelf.a
