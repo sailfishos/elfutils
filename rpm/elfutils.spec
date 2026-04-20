@@ -2,7 +2,7 @@
 
 Summary: A collection of utilities and DSOs to handle compiled objects
 Name: elfutils
-Version: 0.193
+Version: 0.195
 Release: 1
 License: GPLv3+ and (GPLv2+ or LGPLv3+)
 URL: https://github.com/sailfishos/elfutils
